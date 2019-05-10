@@ -1,37 +1,61 @@
 package com.example.recyclerview;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "table_")
+
 public class ExampleItem {
-    private String mImageUrl;
-    private String mCreator;
-    private int mLikes;
-    private int mFavorites;
-    private int mComments;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo(name = "image")
+    private String imageUrl;
+    @ColumnInfo(name = "creator")
+    private String creator;
+    @ColumnInfo(name = "likes")
+    private int likes;
+    @ColumnInfo(name = "favorites")
+    private int favorites;
+    @ColumnInfo(name = "comments")
+    private int comments;
+
 
     public ExampleItem(String imageUrl, String creator, int likes, int favorites, int comments) {
-        mImageUrl = imageUrl;
-        mCreator = creator;
-        mLikes = likes;
-        mFavorites = favorites;
-        mComments = comments;
+        this.imageUrl = imageUrl;
+        this.creator = creator;
+        this.likes = likes;
+        this.favorites = favorites;
+        this.comments = comments;
     }
 
-    public String getmImageUrl() {
-        return mImageUrl;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getmCreator() {
-        return mCreator;
+    public int getId() {
+        return id;
     }
 
-    public int getmLikes() {
-        return mLikes;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public int getmFavorites() {
-        return mFavorites;
+    public String getCreator() {
+        return creator;
     }
 
-    public int getmComments() {
-        return mComments;
+    public int getLikes() {
+        return likes;
     }
+
+    public int getFavorites() {
+        return favorites;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+
 }

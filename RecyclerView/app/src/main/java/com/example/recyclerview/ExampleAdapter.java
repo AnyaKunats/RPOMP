@@ -12,11 +12,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> {
     private Context mContext;
-    private ArrayList<ExampleItem> mExampleList;
+    private List<ExampleItem> mExampleList;
     private onClickList list;
+
+
 
     public interface onClickList {
         void onItemClic(int position);
@@ -26,7 +29,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         list = clickList;
     }
 
-    public ExampleAdapter(Context context, ArrayList<ExampleItem> ExampleList) {
+    public ExampleAdapter(Context context, List<ExampleItem> ExampleList) {
         mContext = context;
         mExampleList = ExampleList;
     }
@@ -41,8 +44,8 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder exampleViewHolder, int i) {
         ExampleItem currentItem = mExampleList.get(i);
-        String imageUrl = currentItem.getmImageUrl();
-        String creator = currentItem.getmCreator();
+        String imageUrl = currentItem.getImageUrl();
+        String creator = currentItem.getCreator();
         exampleViewHolder.mTextViewCreator.setText(creator);
         Picasso.get().load(imageUrl).fit().centerInside().into(exampleViewHolder.mImageView);
     }
