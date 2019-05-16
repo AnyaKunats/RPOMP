@@ -1,5 +1,6 @@
 package com.example.fragments;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 
 import android.content.Context;
@@ -27,7 +28,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         void onItemClic(int position);
     }
 
-    public void setOnClickListener(onClickList clickList) {
+    public void setOnClickListener(FragmentActivity clickList) {
         list = clickList;
     }
 

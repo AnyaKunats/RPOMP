@@ -1,6 +1,7 @@
 package com.example.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,11 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BlankFragment extends Fragment {
+public class BlankFragment extends Fragment implements ExampleAdapter.onClickList {
     private RecyclerView mRecyclerView;
     private ExampleAdapter mExampleAdapter;
     private ArrayList<ExampleItem> mExampleList = new ArrayList<>();
     private RequestQueue mRequestQueue;
+    public static final String EXTRA_URL = "imagwUrl";
+    public static final String EXTRA_CREATOR = "creatorName";
+    public static final String EXTRA_LIKES = "likecount";
+    public static final String EXTRA_FAVORITES = "favoritesCount";
+    public static final String EXTRA_COMMENTS = "commentsCount";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +47,7 @@ public class BlankFragment extends Fragment {
         mRecyclerView.setAdapter(mExampleAdapter);
         mRequestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
         parseJSON();
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        return view;
     }
 
     private void parseJSON() {
@@ -64,7 +70,7 @@ public class BlankFragment extends Fragment {
 
                             }
                             mExampleAdapter = new ExampleAdapter(getActivity(), mExampleList);
-                            mExampleAdapter.setOnClickListener((ExampleAdapter.onClickList) getActivity());
+                            mExampleAdapter.setOnClickListener(getActivity());
                             mRecyclerView.setAdapter(mExampleAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -81,4 +87,15 @@ public class BlankFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClic(int position) {
+        Intent detalIntent=new Intent(this,BlankFragment2);
+        ExampleItem clickedItem=mExampleList.get(position);
+        detalIntent.putExtra(EXTRA_URL, clickedItem.getImageUrl());
+        detalIntent.putExtra(EXTRA_CREATOR,clickedItem.getCreator());
+        detalIntent.putExtra(EXTRA_LIKES,clickedItem.getLikes());
+        detalIntent.putExtra(EXTRA_FAVORITES,clickedItem.getFavorites());
+        detalIntent.putExtra(EXTRA_COMMENTS,clickedItem.getComments());
+        startActivity(detalIntent);
+    }
 }
