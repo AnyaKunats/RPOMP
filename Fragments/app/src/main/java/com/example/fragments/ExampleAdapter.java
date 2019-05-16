@@ -28,7 +28,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         void onItemClic(int position);
     }
 
-    public void setOnClickListener(FragmentActivity clickList) {
+    public void setOnClickListener(onClickList clickList) {
         list = clickList;
     }
 

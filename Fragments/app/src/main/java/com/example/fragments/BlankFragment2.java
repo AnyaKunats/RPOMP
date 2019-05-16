@@ -27,12 +27,12 @@ public class BlankFragment2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_blank_fragment2, container, false);
-        Intent intent = getActivity().getIntent();
-        String ImageUrl = intent.getStringExtra(EXTRA_URL);
-        String creatorName = intent.getStringExtra(EXTRA_CREATOR);
-        int likeCount = intent.getIntExtra(EXTRA_LIKES, 0);
-        int favoritesCount = intent.getIntExtra(EXTRA_FAVORITES, 0);
-        int commentsCount = intent.getIntExtra(EXTRA_COMMENTS, 0);
+
+        String ImageUrl = this.getArguments().getString("webformatURL");
+        String creatorName = this.getArguments().getString("user");
+        int likeCount = this.getArguments().getInt("likes");
+        int favoritesCount = this.getArguments().getInt("favorites");
+        int commentsCount = this.getArguments().getInt("comments");
 
         ImageView imageView = view.findViewById(R.id.image);
         TextView creator = view.findViewById(R.id.text);

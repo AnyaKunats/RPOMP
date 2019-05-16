@@ -70,7 +70,7 @@ public class BlankFragment extends Fragment implements ExampleAdapter.onClickLis
 
                             }
                             mExampleAdapter = new ExampleAdapter(getActivity(), mExampleList);
-                            mExampleAdapter.setOnClickListener(getActivity());
+                            mExampleAdapter.setOnClickListener(BlankFragment.this);
                             mRecyclerView.setAdapter(mExampleAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -89,13 +89,16 @@ public class BlankFragment extends Fragment implements ExampleAdapter.onClickLis
 
     @Override
     public void onItemClic(int position) {
-        Intent detalIntent=new Intent(this,BlankFragment2);
-        ExampleItem clickedItem=mExampleList.get(position);
-        detalIntent.putExtra(EXTRA_URL, clickedItem.getImageUrl());
-        detalIntent.putExtra(EXTRA_CREATOR,clickedItem.getCreator());
-        detalIntent.putExtra(EXTRA_LIKES,clickedItem.getLikes());
-        detalIntent.putExtra(EXTRA_FAVORITES,clickedItem.getFavorites());
-        detalIntent.putExtra(EXTRA_COMMENTS,clickedItem.getComments());
-        startActivity(detalIntent);
+        ExampleItem clickedItem = mExampleList.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("webformatURL", clickedItem.getImageUrl());
+        bundle.putString("user", clickedItem.getCreator());
+        bundle.putInt("likes", clickedItem.getLikes());
+        bundle.putInt("favorites", clickedItem.getFavorites());
+        bundle.putInt("comments", clickedItem.getComments());
+        BlankFragment2 blankFragment2 = new BlankFragment2();
+        blankFragment2.setArguments(bundle);
+        ((MainActivity) getActivity()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fr, blankFragment2).addToBackStack(null).commit();
     }
 }
